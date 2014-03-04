@@ -15,17 +15,19 @@ else {
 }
 
 
-while(isset($codeUrl)){ 
+
 echo "<br>";
 $token = tokenRequest($client_id, $client_secret, $code);
 echo "<br>";
-
-var_dump($token);
-
-echo "<br>" . "<br>";
 print_r($token);
 $athlete = json_decode($token, TRUE);
-echo "<br>";
-echo $athlete['id'];
-}
+echo "<br>" . "<br>";
+
+print_r($athlete['athlete']);
+echo $athlete['access_token'];
+echo $athlete['athlete']['firstname'];
+echo "<br>" . "<br>" .$athlete['athlete']['ftp'];
+
+
+enterAthleteSQL($athlete);
 ?>

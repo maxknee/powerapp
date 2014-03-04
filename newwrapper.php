@@ -1,15 +1,29 @@
 <?php
 require("oauthconstants.php");
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpassword = "root";
+$conn = mysql_connect($dbhost, $dbuser, $dbpassword) or die("error connecting!");
+/*
+This is the url to authorize into strava
 
+*/
 
 function authorizeUrl($clientId, $response_type, $redirect_uri, $scope, $approval_prompt){
 	$authorizeUrl = "https://www.strava.com/oauth/authorize?client_id=$clientId&response_type=$response_type&redirect_uri=$redirect_uri&scope=$scope&approval_prompt=$approval_prompt";
 	return $authorizeUrl;
 }
+/*
+Function in progress
+*/
 
 function parseJason ($response){
 	return json_decode($response);
 }
+/*
+This creates the url and sends and recieves the token/json response after a successful response from strava.
+If it doesnt then it doesnt return anything
+*/
 
 function tokenRequest($clientId, $clientSecret, $code){
 
@@ -46,6 +60,27 @@ function tokenRequest($clientId, $clientSecret, $code){
                 return $responseCode;
         }
 
+}
+
+function enterAthleteSQL($athleteJSON){
+	$access_token = $athleteJSON['access_token'];
+	$id = $athleteJSON['athlete']['id'];
+	$firstname = $athleteJSON['athlete']['firstname'];
+	$lastname = $athleteJSON['athlete']['lastname'];
+	$measurment = $athleteJSON['athlete']['measurement_preference'];
+	$ftp = $athleteJSON['athlete']['ftp'];
+	$conn;
+	$sql = "INSERT INTO `strava`.`user` (access_token, id, firstname, lastname, measurment, ftp) VALUES ('$access_token', '$id', '$firstname', '$lastname', '$measurment', '$ftp');";
+	if (mysql_query($sql)){
+		echo "Record inserted";
+	}
+	else {
+		echo "error " . mysql_error();
+	}
+	
+
+
+	
 }
 
 
