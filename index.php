@@ -1,6 +1,7 @@
 <?php
 require_once ('newwrapper.php');
 require_once ('oauthconstants.php');
+require_once ('sqlcommands.php');
 
  echo "<br>";
 $loginUrl = authorizeUrl($client_id,$response_type,$redirect_uri, $scope, $approval_prompt); 
