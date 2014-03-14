@@ -10,29 +10,11 @@ module.exports = function(grunt) {
                 keepalive: true
             }
         }
-    },
-    phpcs: {
-        application: {
-            dir: 'src'
-        },
-        options: {
-            bin: 'phpcs',
-            standard: 'PSR-MOD'
-        }
-    },
-
-
-    php_analyzer: {
-        application: {
-            dir: 'src'
-        }
     }
+   
   });
 
-  grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-php');
-  grunt.loadNpmTasks('grunt-php-analyzer');
-  grunt.registerTask('default', ['phpcs', 'php_analyzer:application']);
   grunt.registerTask('server', ['php']);
 };
 
