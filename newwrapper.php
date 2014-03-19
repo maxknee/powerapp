@@ -62,13 +62,32 @@ function tokenRequest($clientId, $clientSecret, $code){
 
 }
 
-function getrecentrides($clientId, $accessToken){
-	$ch = curl_init( "https://www.strava.com/api/v3/activities".$clientId );
-	curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Authorization: Bearer ' . $access_key ) );
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 2);
-}
 
+
+function listRides($accessToken){
+	$ch = curl_init("https://www.strava.com/api/v3/athlete/");
+	curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $accessToken));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+#	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+#	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 2);
+	$response = curl_exec($ch);
+	$output = json_decode($response, true);
+	var_dump($output);
+
+	$responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+	echo $responseCode;
+
+	curl_close($ch);
+	if (!empty($response)) {
+                return $response;
+        }
+        else {
+                return $responseCode;
+        }
+
+
+}
 
 
 ?>

@@ -21,7 +21,20 @@ function enterAthleteSQL($athleteJSON){
 	else {
 		echo "error " . mysql_error();
 	}
-	
+
+
+
+	function getAccessToken($athleteId){
+		$sql = "SELECT `access_token` FROM `strava` . `user` WHERE `id` = $athleteId";
+		$access = mysql_query($sql);
+		if (!$access) die ("error " . mysql_error());
+		while($row = mysql_fetch_array($access)){
+			echo $row;
+			return $row['access_token'];
+		}
+
+
+	}
 
 
 	

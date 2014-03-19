@@ -29,6 +29,14 @@ echo $athlete['access_token'];
 echo $athlete['athlete']['firstname'];
 echo "<br>" . "<br>" .$athlete['athlete']['ftp'];
 
-
+$athlete_id = $athlete['athlete']['id'];
+echo "<br>" . $athlete_id . "<br>";
 enterAthleteSQL($athlete);
+$testacess = getAccessToken($athlete_id);
+echo "<br>" . $testacess . "<br>";
+$rideList =  listRides($testacess);
+echo "<br>";
+print_r($rideList);
+echo "<br>";
+$rides = json_decode($rideList, TRUE);
 ?>
