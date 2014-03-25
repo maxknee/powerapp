@@ -63,12 +63,12 @@ function tokenRequest($clientId, $clientSecret, $code){
 
 
 function listRides($accessToken){
-	echo $accessToken;
+
 	$ch = curl_init("https://www.strava.com/api/v3/athlete/activities");
 	$header = array(
 		'Authorization: Bearer ' . $accessToken);
-	var_dump($header);
-	echo "<br> this is the header im trying to send " . $header . "<br>";
+	
+	
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 	curl_setopt($ch, CURLOPT_POST, false);
 	curl_setopt($ch, CURLOPT_HTTPGET, 1);
