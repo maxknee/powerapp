@@ -43,14 +43,12 @@ function tokenRequest($clientId, $clientSecret, $code){
 	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)');
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-	var_dump($ch);
-	echo "<br>";
+	
 
 	$response = curl_exec($ch);
 
 	$responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-	echo $responseCode;
 
 	curl_close($ch);
 	if (!empty($response)) {
@@ -65,27 +63,36 @@ function tokenRequest($clientId, $clientSecret, $code){
 
 
 function listRides($accessToken){
-	$ch = curl_init("https://www.strava.com/api/v3/athlete/");
-	curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $accessToken));
+	echo $accessToken;
+	$ch = curl_init("https://www.strava.com/api/v3/athlete/activities");
+	$header = array(
+		'Content-Type' => 'application/json',
+		'Authorization' => 'Bearer ' . $accessToken);
+	var_dump($header);
+	echo "<br> this is the header im trying to send " . $header . "<br>";
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+	curl_setopt($ch, CURLOPT_POST, false);
+	curl_setopt($ch, CURLOPT_HTTPGET, 1);
+	curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-#	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-#	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 2);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 2);
+	var_dump($ch);
 	$response = curl_exec($ch);
-	$output = json_decode($response, true);
-	var_dump($output);
 
 	$responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
+	var_dump($response);
+	echo $response; 
 	echo $responseCode;
 
-	curl_close($ch);
+	
 	if (!empty($response)) {
                 return $response;
         }
         else {
                 return $responseCode;
         }
-
+curl_close($ch);
 
 }
 

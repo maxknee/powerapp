@@ -33,7 +33,7 @@ $athlete_id = $athlete['athlete']['id'];
 echo "<br>" . $athlete_id . "<br>";
 enterAthleteSQL($athlete);
 $testacess = getAccessToken($athlete_id);
-echo "<br>" . $testacess . "<br>";
+echo "<br> this is the access token " . $testacess . "<br>";
 $rideList =  listRides($testacess);
 echo "<br>";
 print_r($rideList);
