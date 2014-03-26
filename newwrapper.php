@@ -76,13 +76,12 @@ function listRides($accessToken){
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	var_dump($ch);
+	
 	$response = curl_exec($ch);
 
 	$responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	var_dump($response);
-	echo $response; 
-	echo $responseCode;
+
+
 
 	
 	if (!empty($response)) {
@@ -94,6 +93,8 @@ function listRides($accessToken){
 curl_close($ch);
 
 }
+
+
 
 
 ?>

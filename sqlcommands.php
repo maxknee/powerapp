@@ -1,6 +1,6 @@
 <?php
 require("oauthconstants.php");
-require("newwrapper.php");
+require_once("newwrapper.php");
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpassword = "root";
@@ -11,7 +11,7 @@ function enterAthleteSQL($athleteJSON){
 	$id = $athleteJSON['athlete']['id'];
 	$firstname = $athleteJSON['athlete']['firstname'];
 	$lastname = $athleteJSON['athlete']['lastname'];
-	$measurment = $athleteJSON['athlete']['measurement_preference'];
+	$measurment = $athletideJSON['athlete']['measurement_preference'];
 	$ftp = $athleteJSON['athlete']['ftp'];
 	$conn;
 	$sql = "INSERT INTO `strava`.`user` (access_token, id, firstname, lastname, measurment, ftp) VALUES ('$access_token', '$id', '$firstname', '$lastname', '$measurment', '$ftp');";
@@ -34,6 +34,10 @@ function enterAthleteSQL($athleteJSON){
 		}
 
 
+	}
+
+	function importRides($ridelist){
+		
 	}
 
 

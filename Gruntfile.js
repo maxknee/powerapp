@@ -11,12 +11,22 @@ module.exports = function(grunt) {
                 keepalive: true
             }
         }
+    },
+    watch: {
+    markup:{
+        files: ['index.php', 'newwrapper.php', 'sqlcommands.php' ],
+        options: {
+            livereload:true,
+            }
+    }
     }
 
   
   });
 
   grunt.loadNpmTasks('grunt-php');
-  grunt.registerTask('server', ['php']);
+ 
+  grunt.loadNpmTasks('grunt-contrib-watch');
+   grunt.registerTask('server', ['php', 'watch']);
 };
 
