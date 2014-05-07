@@ -14,7 +14,7 @@ function enterAthleteSQL($athleteJSON){
 	$measurment = $athleteJSON['athlete']['measurement_preference'];
 	$ftp = $athleteJSON['athlete']['ftp'];
 	$conn;
-	$sql = "INSERT INTO `strava`.`user` (access_token, id, firstname, lastname, measurment, ftp) VALUES ('$access_token', '$id', '$firstname', '$lastname', '$measurment', '$ftp');";
+	$sql = "INSERT INTO `strava`.`user` (user_id, access_token, f_name, l_name, measurement, ftp) VALUES ('$id', '$access_token', '$firstname', '$lastname', '$measurment', '$ftp');";
 	if (mysql_query($sql)){
 		echo "Record inserted";
 	}
@@ -25,7 +25,7 @@ function enterAthleteSQL($athleteJSON){
 
 
 	function getAccessToken($athleteId){
-		$sql = "SELECT `access_token` FROM `strava` . `user` WHERE `id` = $athleteId";
+		$sql = "SELECT `access_token` FROM `strava` . `user` WHERE `user_id` = $athleteId";
 		$access = mysql_query($sql);
 		if (!$access) die ("error " . mysql_error());
 		while($row = mysql_fetch_array($access)){
@@ -35,6 +35,10 @@ function enterAthleteSQL($athleteJSON){
 
 
 	}
+
+
+
+	
 
 
 	

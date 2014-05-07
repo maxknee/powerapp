@@ -1,7 +1,7 @@
 <?php
-require_once ('newwrapper.php');
-require_once ('oauthconstants.php');
-require_once ('sqlcommands.php');
+require("newwrapper.php");
+require("oauthconstants.php");
+require("sqlcommands.php");
 
  echo "<br>";
 $loginUrl = authorizeUrl($client_id,$response_type,$redirect_uri, $scope, $approval_prompt); 
@@ -20,23 +20,29 @@ else {
 echo "<br>";
 $token = tokenRequest($client_id, $client_secret, $code);
 echo "<br>";
-print_r($token);
-$athlete = json_decode($token, TRUE);
-echo "<br>" . "<br>";
 
-print_r($athlete['athlete']);
-echo $athlete['access_token'];
-echo $athlete['athlete']['firstname'];
-echo "<br>" . "<br>" .$athlete['athlete']['ftp'];
+echo $token->firstname;
+$athletes = json_decode($token, TRUE);
+$athjson = json_decode($token);
+var_dump($athjson);
+echo "<br>";
 
-$athlete_id = $athlete['athlete']['id'];
+
+print_r($athletes['athlete'] );
+echo "<br>" . $athletes['access_token'] . "<br>";
+echo $athletes['athlete']['firstname'];
+echo "<br>" . "<br>" .$athletes['athlete']['ftp'] . "<br>";
+echo $athletes['athlete']['clubs']['id'];
+
+$athlete_id = $athletes['athlete']['id'];
 echo "<br>" . $athlete_id . "<br>";
-enterAthleteSQL($athlete);
+enterAthleteSQL($athletes);
 $testacess = getAccessToken($athlete_id);
-echo "<br> this is the access token " . $testacess . "<br>";
-$rideList =  listRides($testacess);
+echo "<br> this is the access token " . $testacess . "<br>" .  "<br>";
+
+$rides = listRides($testacess);
 echo "<br>";
-print_r($rideList);
-echo "<br>";
-$rides = json_decode($rideList, TRUE);
+
+
+
 ?>
